@@ -2,16 +2,23 @@ FROM swipl as base
 
 RUN apt-get update && apt-get install -y \
     git build-essential autoconf curl unzip \
-    cleancss node-requirejs
+    node-requirejs
+
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install -g bower clean-css clean-css-cli
 
 ENV SWISH_HOME /swish
-ENV SWISH_SHA1 3a7e413149e68f2500aa0575465c70e8a1b5e53f
+WORKDIR ${SWISH_HOME}
 
+ENV SWISH_SHA1 8f82e1fccf11f17fdc8821ad8d6066b5973000cc
 RUN echo "At version ${SWISH_SHA1}"
-RUN git clone https://github.com/vre4eic/swish.git && \
-    (cd swish && git checkout -q ${SWISH_SHA1})
+RUN git clone https://github.com/vre4eic/swish.git ${SWISH_HOME} && \
+    git checkout -q ${SWISH_SHA1}
+
+RUN bower install --allow-root
 RUN make -C /swish RJS="nodejs /usr/lib/nodejs/requirejs/r.js" \
-	bower-zip packs min
+	src packs min
 
 FROM base
 LABEL maintainer "Jan Wielemaker <jan@swi-prolog.org>",  "Jacco van Ossenbruggen <Jacco.van.Ossenbruggen@cwi.nl>"
