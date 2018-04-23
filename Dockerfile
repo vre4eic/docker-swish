@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=base /swish /swish
-COPY entry.sh entry.sh
+COPY entry.sh /entry.sh
 
 ENV SWISH_DATA /data
 VOLUME ${SWISH_DATA}
