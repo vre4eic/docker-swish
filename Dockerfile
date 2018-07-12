@@ -11,7 +11,7 @@ RUN npm install -g bower clean-css clean-css-cli
 ENV SWISH_HOME /swish
 WORKDIR ${SWISH_HOME}
 
-ENV SWISH_SHA1 b7de8ed041631c02fa34780c43db5a6c711605b3
+ENV SWISH_SHA1 3d3ae7cf91f53e34e6f0d030ffd68c1c196b2a74
 RUN echo "At version ${SWISH_SHA1}"
 RUN git clone https://github.com/vre4eic/swish.git ${SWISH_HOME} && \
     git checkout -q ${SWISH_SHA1}
