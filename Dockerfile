@@ -5,7 +5,8 @@ RUN apt-get update && apt-get install -y \
     cleancss node-requirejs
 
 ENV SWISH_HOME /swish
-ENV SWISH_SHA1 01f8f198723d7c20fcc4be84c19de79378f73a9e
+ENV SWISH_SHA1 V1.1.0
+
 RUN echo "At version ${SWISH_SHA1}"
 RUN git clone https://github.com/vre4eic/swish.git ${SWISH_HOME} && \
     (cd swish && git checkout -q ${SWISH_SHA1})
@@ -18,6 +19,7 @@ LABEL maintainer "Jan Wielemaker <jan@swi-prolog.org>",  "Jacco van Ossenbruggen
 
 RUN apt-get update && apt-get install -y \
     graphviz imagemagick \
+    git \
     wamerican && \
     rm -rf /var/lib/apt/lists/*
 
